@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Верификация агентов — C.R.I.D.</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #0a0a0a;
+      color: #00ffcc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-image: url('background.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 60px rgba(0, 255, 255, 0.2);
+      text-align: center;
+      max-width: 90%;
+    }
+
+    input[type="text"] {
+      margin: 10px 0;
+      padding: 12px;
+      width: 260px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #111;
+      color: #00ffcc;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #00ffcc;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #000;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #00ffaa;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .video-section {
+      margin-top: 30px;
+      display: none;
+    }
+
+    video {
+      width: 100%;
+      max-width: 640px;
+      border: 2px solid #00ffcc;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Ввод фамилий агентов — порядок критичен</h2>
+    <p>Ответьте на 5 вопросов. Введите только фамилии, без пробелов и знаков препинания.</p>
+    <input type="text" id="ans1" placeholder="Фамилия по 1 вопросу">
+    <input type="text" id="ans2" placeholder="Фамилия по 2 вопросу">
+    <input type="text" id="ans3" placeholder="Фамилия по 3 вопросу">
+    <input type="text" id="ans4" placeholder="Фамилия по 4 вопросу">
+    <input type="text" id="ans5" placeholder="Фамилия по 5 вопросу">
+    <br>
+    <button onclick="checkAnswers()">Проверить</button>
+    <div class="message" id="resultMessage"></div>
+    <div class="video-section" id="videoSection">
+      <p>Сообщение от Лины:</p>
+      <video controls>
+        <source src="video.mp4" type="video/mp4">
+        Ваш браузер не поддерживает воспроизведение видео.
+      </video>
+    </div>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      const correct = ["туманова", "ковтун", "рогов", "серов", "елисеева"];
+      const inputs = [
+        document.getElementById("ans1").value.trim().toLowerCase(),
+        document.getElementById("ans2").value.trim().toLowerCase(),
+        document.getElementById("ans3").value.trim().toLowerCase(),
+        document.getElementById("ans4").value.trim().toLowerCase(),
+        document.getElementById("ans5").value.trim().toLowerCase()
+      ];
+
+      const result = document.getElementById("resultMessage");
+      const videoSection = document.getElementById("videoSection");
+
+      if (JSON.stringify(inputs) === JSON.stringify(correct)) {
+        result.textContent = "ВЕРНО. СОЕДИНЕНИЕ С ЛИНОЙ УСТАНОВЛЕНО...";
+        result.style.color = "limegreen";
+        videoSection.style.display = "block";
+      } else {
+        result.textContent = "Неверно. Проверьте фамилии и порядок.";
+        result.style.color = "red";
+        videoSection.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
